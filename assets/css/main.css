@@ -95,7 +95,11 @@ select {
   --fw-500: 500;
   --fw-700: 700;
 }
-
+@media (min-width: 55.5em) {
+  :root {
+    --fs-700: 2rem;
+  }
+}
 .flow * + * {
   margin-top: var(--flow-gap, 1em);
 }
