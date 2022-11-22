@@ -8,6 +8,13 @@ const RequestedLocation = document.getElementById('req-location');
 const RequestedTimezone = document.getElementById('req-timezone');
 const RequestedISP = document.getElementById('req-isp');
 
+// IP Geolocation API (ipify) url brekdown variables for future use
+const apiBase_Url = 'https://geo.ipify.org/api';
+const apiVersion = 'v2';
+const apiType = 'country,city';
+const apiKey = 'at_Idc78NT5gMG1l8VUYQE52sAOuzNIV';
+let passedInIpAddress = '';
+
 // Function to call leaflet api to pinpoint ip address with longituse and latitude
 function LeafletMap(longitude, latitude) {
   var map;
@@ -64,7 +71,6 @@ function ipAddressGrabber(API_URL) {
     })
     .then((data) => {
       // Passing ip,locationa and isp property of data obj
-      console.log(data);
       resultInHTML(data['ip'], data['location'], data['isp']);
     })
     .catch((error) => alert('Something went wrong' + error));
@@ -72,12 +78,6 @@ function ipAddressGrabber(API_URL) {
 
 // Function to search inputed data and display data on click
 SearchBtn.addEventListener('click', () => {
-  // IP Geolocation API (ipify) url brekdown variables for future use
-  const apiBase_Url = 'https://geo.ipify.org/api';
-  const apiVersion = 'v2';
-  const apiType = 'country,city';
-  const apiKey = 'at_Idc78NT5gMG1l8VUYQE52sAOuzNIV';
-  let passedInIpAddress = '';
   // Assign entered domain or ip address to passedInIpAddress variable
   passedInIpAddress = ipInput.value;
   console.log(passedInIpAddress);
@@ -87,7 +87,19 @@ SearchBtn.addEventListener('click', () => {
   ipAddressGrabber(API_URL);
 });
 
-// Generate random No between 1 and -1
-const random_sign = Math.cos(Math.PI * Math.random());
-// Assign randomly generated random_sign to map when window is loaded
-window.onload = LeafletMap(random_sign * 90, random_sign * 180);
+// On window load get user ip address
+window.onload = fetch('https://api.ipify.org?format=json')
+  .then((response) =>
+    response.ok ? response.json() : Promise.reject(response),
+  )
+  .then((data) => {
+    const userIp = data.ip;
+    ipInput.value = `${userIp}`;
+    setTimeout(() => {
+      alert(`Your current IP is: ${userIp}`);
+    }, 1000);
+    ipAddressGrabber(
+      `${apiBase_Url}/${apiVersion}/${apiType}?apiKey=${apiKey}&ipAddress=${userIp}`,
+    );
+  })
+  .catch((error) => alert('Something went wrong' + error));
