@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | IP Address Tracker</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <!-- Leaflet API -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <!-- Leaflet script -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
+    <!-- Fetch script -->
+    <script defer src="/assets/js/fetch.js"></script>
+  </head>
+  <body>
+    <main>
+      <header class="header flow">
+        <h1>IP Address Tracker</h1>
+        <div class="ip-search">
+          <input
+            type="text"
+            name=""
+            id="ip-address-input"
+            placeholder="Search for any IP address or domain"
+            pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?|^((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
+            required
+          />
+          <button type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14">
+              <path
+                fill="none"
+                stroke="#FFF"
+                stroke-width="3"
+                d="M2 1l6 6-6 6"
+              />
+            </svg>
+          </button>
+        </div>
+        <section id="ip-result">
+          <div class="ip-result__section" id="ip-address">
+            <h2 class="ip-result__section__header">IP Address</h2>
+            <p id="req-ip">-</p>
+          </div>
+
+          <div class="ip-result__section border-separater" id="location">
+            <h2 class="ip-result__section__header">Location</h2>
+            <p id="req-location">-</p>
+          </div>
+          <div class="ip-result__section border-separater" id="timezone">
+            <h2 class="ip-result__section__header">Timezone</h2>
+            <p id="req-timezone">-</p>
+          </div>
+          <div class="ip-result__section border-separater" id="isp">
+            <h2 class="ip-result__section__header">ISP</h2>
+            <p id="req-isp">-</p>
+          </div>
+        </section>
+      </header>
+      <div id="map"></div>
+    </main>
+  </body>
+</html>
